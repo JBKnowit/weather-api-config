@@ -14,6 +14,8 @@ spec:
       labels:
         app: weather-api
     spec:
+      imagePullSecrets:
+        - name: ghcr-secret
       containers:
       - name: weather-api
         image: ghcr.io/jbknowit/weather-api:latest
