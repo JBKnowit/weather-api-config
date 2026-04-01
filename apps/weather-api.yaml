@@ -1,18 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: root-app
+  name: weather-api
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
-  project: default
   source:
     repoURL: https://github.com/JBKnowit/weather-api-config.git
     targetRevision: HEAD
-    path: apps
+    path: env/dev/weatherapi
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: weatherapi
   syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
     automated:
       selfHeal: true
       prune: true

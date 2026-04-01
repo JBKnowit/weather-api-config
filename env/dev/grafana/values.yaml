@@ -1,0 +1,28 @@
+# Grafana Helm values
+# Chart: grafana v8.8.2
+# Docs: https://github.com/grafana/helm-charts/tree/main/charts/grafana
+#
+# These values override the chart defaults.
+# Run `helm show values grafana/grafana` to see all available options.
+
+service:
+  type: LoadBalancer
+  port: 3000
+
+persistence:
+  enabled: true
+  size: 1Gi
+
+# Default admin credentials (change in production!)
+adminUser: admin
+adminPassword: admin
+
+# Datasources — automatically configure Prometheus
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://prometheus-server.monitoring.svc:80
+        isDefault: true

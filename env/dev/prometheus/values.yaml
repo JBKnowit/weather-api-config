@@ -1,0 +1,24 @@
+# Prometheus Helm values
+# Chart: prometheus v27.3.1
+# Docs: https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus
+#
+# These values override the chart defaults.
+# Run `helm show values prometheus-community/prometheus` to see all available options.
+
+server:
+  service:
+    type: ClusterIP
+
+  persistentVolume:
+    enabled: true
+    size: 2Gi
+
+  retention: "7d"
+
+# Alertmanager — disable if not needed
+alertmanager:
+  enabled: false
+
+# Pushgateway — disable if not needed
+prometheus-pushgateway:
+  enabled: false

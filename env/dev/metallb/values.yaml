@@ -1,0 +1,14 @@
+# MetalLB Helm values
+# Chart: metallb v0.14.9
+# Docs: https://metallb.universe.tf/configuration/
+#
+# These values override the chart defaults.
+# Run `helm show values metallb/metallb` to see all available options.
+#
+# IMPORTANT: After MetalLB is running, you still need an IPAddressPool
+# and L2Advertisement resource. Create these in env/dev/metallb/ as
+# separate YAML files, or add them below if the chart supports it.
+
+speaker:
+  frr:
+    enabled: false

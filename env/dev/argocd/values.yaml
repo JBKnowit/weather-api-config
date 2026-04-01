@@ -1,0 +1,20 @@
+# ArgoCD Helm values
+# Chart: argo-cd v7.8.13
+# Docs: https://github.com/argoproj/argo-helm/tree/main/charts/argo-cd
+#
+# These values override the chart defaults.
+# Run `helm show values argo-helm/argo-cd` to see all available options.
+
+server:
+  service:
+    type: ClusterIP
+
+  # Insecure mode (disable TLS on argocd-server) — useful for local dev
+  # Remove this in production and configure TLS properly
+  extraArgs:
+    - --insecure
+
+configs:
+  params:
+    # Allow ArgoCD to manage resources in any namespace
+    application.namespaces: "*"
