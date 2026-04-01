@@ -1,44 +1,18 @@
----
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: weather-api
+  name: argocd-root-app
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/JBKnowit/weather-api-config.git
     targetRevision: HEAD
-    path: dev/weatherapi
+    path: env
   destination:
     server: https://kubernetes.default.svc
-    namespace: weatherapi
-  
+    namespace: argocd
   syncPolicy:
-    syncOptions:
-    - CreateNamespace=true
-
-    automated:
-      selfHeal: true
-      prune: true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: grafana
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/JBKnowit/weather-api-config.git
-    targetRevision: HEAD
-    path: dev/grafana
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: monitoring
-  syncPolicy:
-    syncOptions:
-      - CreateNamespace=true
     automated:
       selfHeal: true
       prune: true
