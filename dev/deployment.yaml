@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: weather-api
-        image: weather-api:1.14.2
+        image: ghcr.io/jbknowit/weather-api:latest
         ports:
         - containerPort: 80
