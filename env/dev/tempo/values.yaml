@@ -4,62 +4,50 @@
 
 serviceAccount:
   create: true
-  name: tempo
 
 service:
   type: ClusterIP
   port: 3100
 
-tempo:
-  authEnabled: false
-  
-  # Monolith configuration: single instance with all components
-  config: |
-    server:
-      http_listen_port: 3100
-      log_level: info
+# Monolith deployment mode
+deploymentMode: monolith
 
-    distributor:
-      rate_limit_bytes: 5000000
-      rate_limit_enabled: false
+# Minimal config for single-node dev
+config: |
+  server:
+    http_listen_port: 3100
+    log_level: info
 
-    ingester:
-      trace_idle_period: 10s
-      max_block_bytes: 5242880
-      processors:
-        batch:
-          timeout: 10s
-          send_batch_size: 1024
+  distributor:
+    rate_limit_bytes: 5000000
 
-    compactor:
-      compaction:
-        block_retention: 1h
-        compacted_block_retention: 10m
-        max_compaction_objects: 6000000
-        max_time_per_tenant: 5m
-        v2_out_buffer_meg: 20
+  ingester:
+    trace_idle_period: 10s
+    max_block_bytes: 5242880
 
-    storage:
-      trace:
-        backend: local
-        wal:
-          path: /var/tempo/wal
-        local:
-          path: /var/tempo/traces
+  compactor:
+    compaction:
+      block_retention: 1h
+      compacted_block_retention: 10m
 
-    querier:
-      max_concurrent_requests: 10
-      search:
-        prefer_self: 10
-        default_result_limit: 20
+  storage:
+    trace:
+      backend: local
+      wal:
+        path: /var/tempo/wal
+      local:
+        path: /var/tempo/traces
 
-    query_frontend:
-      compression: snappy
-
+# Persistence for trace storage
 persistence:
   enabled: true
   size: 5Gi
+  storageClassName: null
 
+# Single replica for monolith
+replicas: 1
+
+# Resource requests for single-node
 resources:
   requests:
     cpu: 100m
@@ -67,9 +55,3 @@ resources:
   limits:
     cpu: 500m
     memory: 512Mi
-
-# Disable multi-tenancy 
-multitenancy_enabled: false
-
-# Single pod replicas for monolith
-replicas: 1
