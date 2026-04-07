@@ -18,18 +18,6 @@ config: |
     http_listen_port: 3100
     log_level: info
 
-  distributor:
-    rate_limit_bytes: 5000000
-
-  ingester:
-    trace_idle_period: 10s
-    max_block_bytes: 5242880
-
-  compactor:
-    compaction:
-      block_retention: 1h
-      compacted_block_retention: 10m
-
   storage:
     trace:
       backend: local
@@ -37,6 +25,10 @@ config: |
         path: /var/tempo/wal
       local:
         path: /var/tempo/traces
+
+  querier:
+    frontend_worker:
+      frontend_address: localhost:3100
 
 # Persistence for trace storage
 persistence:
