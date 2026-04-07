@@ -20,6 +20,12 @@ loki:
 
 minio:
   enabled: true
+
+lokiCanary:
+  enabled: false
+
+gateway:
+  enabled: false
       
 deploymentMode: SingleBinary
 
