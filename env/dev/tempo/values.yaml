@@ -47,3 +47,18 @@ resources:
   limits:
     cpu: 500m
     memory: 512Mi
+
+# Fix probe port to match config listen port
+livenessProbe:
+  httpGet:
+    path: /ready
+    port: 3100
+  initialDelaySeconds: 30
+  periodSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /ready
+    port: 3100
+  initialDelaySeconds: 10
+  periodSeconds: 5
