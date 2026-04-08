@@ -1,64 +1,18 @@
-# Grafana Tempo Helm values for monolith mode
-# Chart: tempo
-# Docs: https://grafana.github.io/helm-charts/
-
-serviceAccount:
-  create: true
-
-service:
-  type: ClusterIP
-  port: 3100
-
-# Monolith deployment mode
-deploymentMode: monolith
-
-# Minimal config for single-node dev
-config: |
-  server:
-    http_listen_port: 3100
-    log_level: info
-
+replicas: 1
+tempo:
+  resources:
+    requests:
+      memory: 2Gi
+    limits:
+      memory: 4Gi
+  retention: 24h
+  receivers:
+    otlp:
+      protocols:
+        grpc:
+          endpoint: 0.0.0.0:4317
   storage:
     trace:
       backend: local
-      wal:
-        path: /var/tempo/wal
       local:
         path: /var/tempo/traces
-
-  querier:
-    frontend_worker:
-      frontend_address: localhost:3100
-
-# Persistence for trace storage
-persistence:
-  enabled: true
-  size: 5Gi
-  storageClassName: null
-
-# Single replica for monolith
-replicas: 1
-
-# Resource requests for single-node
-resources:
-  requests:
-    cpu: 100m
-    memory: 128Mi
-  limits:
-    cpu: 500m
-    memory: 512Mi
-
-# Fix probe port to match config listen port
-livenessProbe:
-  httpGet:
-    path: /ready
-    port: 3100
-  initialDelaySeconds: 30
-  periodSeconds: 10
-
-readinessProbe:
-  httpGet:
-    path: /ready
-    port: 3100
-  initialDelaySeconds: 10
-  periodSeconds: 5
