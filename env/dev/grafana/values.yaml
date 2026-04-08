@@ -34,3 +34,7 @@ datasources:
         jsonData:
           httpMethod: GET
         isDefault: false
+      - name: Tempo
+        type: tempo
+        url: http://tempo.monitoring.svc.cluster.local:3200
+        isDefault: true
