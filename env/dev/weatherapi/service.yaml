@@ -5,11 +5,11 @@ metadata:
   namespace: weatherapi
   labels:
     app.kubernetes.io/name: weather-api
-    project: weather-api-project
+    project: weather-api
 spec:
   selector:
     app.kubernetes.io/name: weather-api
-    project: weather-api-project
+    project: weather-api
   ports:
     -
       port: 80
