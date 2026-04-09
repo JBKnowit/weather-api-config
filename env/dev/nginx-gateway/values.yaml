@@ -1,0 +1,5 @@
+nginx:
+  service:
+    type: LoadBalancer
+    annotations:
+      metallb.universe.tf/address-pool: default-pool
