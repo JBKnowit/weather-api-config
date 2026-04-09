@@ -4,7 +4,7 @@ metadata:
   name: weather-api-gateway
   namespace: weatherapi
 spec:
-  gatewayClassName: nginx
+  gatewayClassName: eg
   listeners:
     - name: http
       protocol: HTTP
