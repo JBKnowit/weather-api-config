@@ -1,0 +1,6 @@
+controller:
+  service:
+    type: LoadBalancer
+    loadBalancerIP: 172.18.0.210
+    annotations:
+      metallb.universe.tf/address-pool: default-pool
