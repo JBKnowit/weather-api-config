@@ -9,6 +9,9 @@ server:
   service:
     type: ClusterIP
 
+  extraFlags:
+    - web.enable-remote-write-receiver
+
   persistentVolume:
     enabled: true
     size: 2Gi

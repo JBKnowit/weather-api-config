@@ -2,7 +2,14 @@ replicas: 1
 metricsGenerator:
   enabled: true
 tempo:
+  memberlist:
+    abort_if_cluster_join_fails: false
+    join_members:
+      - tempo-gossip-ring.monitoring.svc.cluster.local:7946
   metrics_generator:
+    ring:
+      kvstore:
+        store: memberlist
     registry:
       external_labels:
         source: tempo
@@ -10,7 +17,7 @@ tempo:
     storage:
       path: /var/tempo/generator/wal
       remote_write:
-        - url: http://prometheus:9090/api/v1/write
+        - url: http://prometheus-server.monitoring.svc.cluster.local:80/api/v1/write
           send_exemplars: true
     traces_storage:
       path: /var/tempo/generator/traces
