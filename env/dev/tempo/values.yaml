@@ -1,4 +1,6 @@
 replicas: 1
+metricsGenerator:
+  enabled: true
 tempo:
   metrics_generator:
     registry:
