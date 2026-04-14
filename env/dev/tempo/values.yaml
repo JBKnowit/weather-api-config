@@ -1,5 +1,21 @@
 replicas: 1
 tempo:
+  metrics_generator:
+    registry:
+      external_labels:
+        source: tempo
+        cluster: docker-compose
+    storage:
+      path: /var/tempo/generator/wal
+      remote_write:
+        - url: http://prometheus:9090/api/v1/write
+          send_exemplars: true
+    traces_storage:
+      path: /var/tempo/generator/traces
+    processor:
+      local_blocks:
+        filter_server_spans: false
+        flush_to_storage: true
   resources:
     requests:
       memory: 2Gi
@@ -16,3 +32,9 @@ tempo:
       backend: local
       local:
         path: /var/tempo/traces
+    overrides:
+    
+  defaults:
+    metrics_generator:
+      processors: [service-graphs, span-metrics, local-blocks] # enables metrics generator
+      generate_native_histograms: both
