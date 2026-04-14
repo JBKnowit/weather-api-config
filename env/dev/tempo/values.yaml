@@ -2,14 +2,10 @@ replicas: 1
 metricsGenerator:
   enabled: true
 tempo:
-  memberlist:
-    abort_if_cluster_join_fails: false
-    join_members:
-      - tempo-gossip-ring.monitoring.svc.cluster.local:7946
   metrics_generator:
     ring:
       kvstore:
-        store: memberlist
+        store: inmemory
     registry:
       external_labels:
         source: tempo
@@ -41,6 +37,12 @@ tempo:
       backend: local
       local:
         path: /var/tempo/traces
+  querier:
+    metrics_generator:
+      ring:
+        replication_factor: 1
+      client:
+        addresses: localhost:8089
   overrides:
     defaults:
       metrics_generator:
