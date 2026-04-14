@@ -32,9 +32,8 @@ tempo:
       backend: local
       local:
         path: /var/tempo/traces
-    overrides:
-    
-  defaults:
-    metrics_generator:
-      processors: [service-graphs, span-metrics, local-blocks] # enables metrics generator
-      generate_native_histograms: both
+  overrides:
+    defaults:
+      metrics_generator:
+        processors: [service-graphs, span-metrics, local-blocks] # enables metrics generator
+        generate_native_histograms: both
