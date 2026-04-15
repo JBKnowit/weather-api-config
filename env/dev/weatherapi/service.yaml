@@ -5,6 +5,10 @@ metadata:
   namespace: weatherapi
   labels:
     app: weather-api
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "/metrics"
+    prometheus.io/port: "80"
 spec:
   selector:
     app: weather-api
