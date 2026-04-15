@@ -1,12 +1,7 @@
 replicas: 1
 metricsGenerator:
   enabled: true
-tempo:
-  memberlist:
-    abort_if_cluster_join_fails: false
-    join_members:
-      - tempo-gossip-ring.monitoring.svc.cluster.local:7946
-  metrics_generator:
+  config:
     ring:
       kvstore:
         store: memberlist
@@ -25,6 +20,16 @@ tempo:
       local_blocks:
         filter_server_spans: false
         flush_to_storage: true
+overrides:
+  defaults:
+    metrics_generator:
+      processors: [service-graphs, span-metrics, local-blocks]
+      generate_native_histograms: both
+tempo:
+  memberlist:
+    abort_if_cluster_join_fails: false
+    join_members:
+      - tempo-gossip-ring.monitoring.svc.cluster.local:7946
   resources:
     requests:
       memory: 2Gi
@@ -41,8 +46,3 @@ tempo:
       backend: local
       local:
         path: /var/tempo/traces
-  overrides:
-    defaults:
-      metrics_generator:
-        processors: [service-graphs, span-metrics, local-blocks] # enables metrics generator
-        generate_native_histograms: both
