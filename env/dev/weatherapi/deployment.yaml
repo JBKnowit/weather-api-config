@@ -5,7 +5,7 @@ metadata:
   labels:
     app: weather-api
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: weather-api
