@@ -18,6 +18,20 @@ server:
 
   retention: "7d"
 
+serverFiles:
+  alerting_rules.yml:
+    groups:
+      - name: weather-api
+        rules:
+          - alert: WeatherApiDown
+            expr: up{job="kubernetes-service-endpoints", app="weather-api"} == 0
+            for: 1m
+            labels:
+              severity: critical
+            annotations:
+              summary: "Weather API is down"
+              description: "The weather-api pod has been unreachable for more than 1 minute."
+              
 # Alertmanager — disable if not needed
 alertmanager:
   enabled: false
