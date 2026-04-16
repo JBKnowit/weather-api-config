@@ -19,6 +19,7 @@ server:
 
   extraFlags:
     - web.enable-remote-write-receiver
+    - web.enable-lifecycle
 
   persistentVolume:
     enabled: true
