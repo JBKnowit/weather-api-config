@@ -26,14 +26,10 @@ serverFiles:
           - alert: WeatherApiDown
             expr: |
               (
-                max(
-                  up{job="kubernetes-service-endpoints", kubernetes_namespace="weatherapi", kubernetes_name="weather-api-service"}
-                ) == 0
-              )
-              or
-              absent(
-                up{job="kubernetes-service-endpoints", kubernetes_namespace="weatherapi", kubernetes_name="weather-api-service"}
-              )
+                sum(up{job="kubernetes-service-endpoints", kubernetes_namespace="weatherapi", kubernetes_name="weather-api-service"})
+                +
+                sum(up{job="kubernetes-service-endpoints", namespace="weatherapi", service="weather-api-service"})
+              ) < 1
             for: 1m
             labels:
               severity: critical
