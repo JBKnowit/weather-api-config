@@ -9,6 +9,14 @@ server:
   service:
     type: ClusterIP
 
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager.monitoring.svc.cluster.local:9093
+      scheme: http
+      timeout: 10s
+      api_version: v2
+
   extraFlags:
     - web.enable-remote-write-receiver
 
