@@ -45,6 +45,22 @@ serverFiles:
         rules:
           - record: node_memory_MemFree_percent
             expr: 100 - (100 * node_memory_MemFree_bytes / node_memory_MemTotal_bytes)
+
+  prometheus.yml:
+    rule_files:
+      - /etc/config/recording_rules.yml
+      - /etc/config/alerting_rules.yml
+      ## Below two files are DEPRECATED will be removed from this default values file
+      - /etc/config/rules
+      - /etc/config/alerts
+    scrape_configs:
+      - job_name: "prometheus"
+        static_configs:
+        - targets: ['localhost:9090']
+      - job_name: "alertmanager"
+        static_configs:
+        - targets: ['prometheus-alertmanager.monitoring.svc.cluster.local:9093']
+    
               
 # Alertmanager — disable if not needed
 alertmanager:
