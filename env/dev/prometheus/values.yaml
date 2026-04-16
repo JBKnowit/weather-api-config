@@ -45,7 +45,7 @@ serverFiles:
               
 # Alertmanager — disable if not needed
 alertmanager:
-  enabled: false
+  enabled: true
 
 # Pushgateway — disable if not needed
 prometheus-pushgateway:
