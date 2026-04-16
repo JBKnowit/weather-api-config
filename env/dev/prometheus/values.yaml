@@ -34,11 +34,8 @@ serverFiles:
           - alert: WeatherApiDown
             expr: |
               max(
-                (
-                  up{job="kubernetes-service-endpoints", kubernetes_namespace="weatherapi", kubernetes_name="weather-api-service"}
-                  or
-                  up{job="kubernetes-service-endpoints", namespace="weatherapi", service="weather-api-service"}
-                ) or vector(0)
+                up{job="kubernetes-service-endpoints", namespace="weatherapi", service="weather-api-service"}
+                or vector(0)
               ) == 0
             for: 1m
             labels:
