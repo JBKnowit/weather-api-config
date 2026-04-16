@@ -32,11 +32,7 @@ serverFiles:
       - name: weather-api
         rules:
           - alert: WeatherApiDown
-            expr: |
-              max(
-                up{job="kubernetes-service-endpoints", namespace="weatherapi", service="weather-api-service"}
-                or vector(0)
-              ) == 0
+            expr: sum(kube_replicaset_status_ready_replicas{namespace="weatherapi"}) == 0
             for: 1m
             labels:
               severity: critical
