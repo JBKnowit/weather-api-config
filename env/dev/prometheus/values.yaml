@@ -38,9 +38,9 @@ serverFiles:
               description: "The weather-api pod has been unreachable for more than 1 minute."
   recording_rules.yml: #Default filename for recording rules
     groups:
-        - name: custom-rules
-          rules:
-            - record: node_memory_MemFree_percent
+      - name: custom-rules
+        rules:
+          - record: node_memory_MemFree_percent
             expr: 100 - (100 * node_memory_MemFree_bytes / node_memory_MemTotal_bytes)
               
 # Alertmanager — disable if not needed
