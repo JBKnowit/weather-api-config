@@ -12,7 +12,7 @@ server:
   alertmanagers:
     - static_configs:
         - targets:
-            - localhost:9093
+            - prometheus-alertmanager.monitoring.svc.cluster.local:9093
       scheme: http
       timeout: 10s
       api_version: v2
